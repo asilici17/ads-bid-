@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Service Estimator</title>
+    <script>
+        function calculateTotal() {
+            let totalHours = parseFloat(document.getElementById('totalHours').value) || 0;
+            let climberCount = parseFloat(document.getElementById('climbers').value) || 0;
+            let groundsmenCount = parseFloat(document.getElementById('groundsmen').value) || 0;
+            let salesCommissionRate = parseFloat(document.getElementById('salesCommission').value) / 100 || 0;
+            let costMultiplier = parseFloat(document.getElementById('costMultiplier').value) || 2.8;
+            
+            let chipperCount = parseFloat(document.getElementById('chipper').value) || 0;
+            let miniSkidCount = parseFloat(document.getElementById('miniSkid').value) || 0;
+            let spiderLiftCount = parseFloat(document.getElementById('spiderLift').value) || 0;
+            let dumpTrailerCount = parseFloat(document.getElementById('dumpTrailer').value) || 0;
+            let dumpLoads = parseFloat(document.getElementById('dumpLoads').value) || 0;
+            
+            let laborCost = (climberCount * 85 + groundsmenCount * 50) * totalHours;
+            let equipmentCost = (chipperCount * 400) + (miniSkidCount * 400) + (spiderLiftCount * 400) + (dumpTrailerCount * 100);
+            let dumpCost = dumpLoads * 650;
+            
+            let trueCost = laborCost + equipmentCost + dumpCost;
+            let jobCost = trueCost + (trueCost * salesCommissionRate);
+            let totalCost = jobCost * costMultiplier;
+            
+            document.getElementById('finalCost').innerText = `$${jobCost.toFixed(2)}`;
+            document.getElementById('totalCost').innerText = `$${totalCost.toFixed(2)}`;
+        }
+    </script>
+</head>
+<body>
+    <h2>Tree Service Estimator</h2>
+    <form>
+        <label>Customer Name: <input type="text"></label><br>
+        <label>Customer Email: <input type="email"></label><br>
+        <label>Address: <input type="text"></label><br>
+        <label>Phone: <input type="tel"></label><br>
+        <label>Date: <input type="date"></label><br>
+        <label>Sales Arborist: <input type="text"></label><br>
+        
+        <h3>Scope of Work</h3>
+        <label>Trees to Remove: <input type="number"></label><br>
+        <label>Trims: <input type="number"></label><br>
+        <label>Stumps to Remove: <input type="number"></label><br>
+        <label>Defensible Space (Acres): <input type="number" step="0.1"></label><br>
+        
+        <h3>Crew & Equipment</h3>
+        <label>Climbers: <input type="number" id="climbers"></label><br>
+        <label>Groundsmen: <input type="number" id="groundsmen"></label><br>
+        <label>Chipper: <input type="number" id="chipper"></label><br>
+        <label>Mini Skid: <input type="number" id="miniSkid"></label><br>
+        <label>Spider Lift: <input type="number" id="spiderLift"></label><br>
+        <label>Dump Trailer: <input type="number" id="dumpTrailer"></label><br>
+        <label>Number of Dump Loads: <input type="number" id="dumpLoads"></label><br>
+        
+        <h3>Operational Phases (Hours)</h3>
+        <label>Total Hours: <input type="number" id="totalHours"></label><br>
+        
+        <h3>Job Cost Calculation</h3>
+        <label>Sales Commission (10-15%): <input type="number" id="salesCommission" step="0.1"></label><br>
+        <label>Cost Multiplier (2.8-4.1): <input type="number" id="costMultiplier" step="0.1"></label><br>
+        
+        <button type="button" onclick="calculateTotal()">Calculate</button>
+    </form>
+    
+    <h3>Job Cost: <span id="finalCost">$0.00</span></h3>
+    <h3>Total Cost: <span id="totalCost">$0.00</span></h3>
+</body>
+</html>
